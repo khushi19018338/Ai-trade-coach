@@ -7,19 +7,15 @@ import MainLayout from "../components/layout/MainLayout";
 import Landing from "../pages/landing";
 import Login from "../pages/login";
 import Register from "../pages/register";
-
 import Dashboard from "../pages/dashboard";
-import Portfolio from "../pages/portfolio";
-import Trades from "../pages/trades";
-import AIAdvisor from "../pages/ai-advisor";
-import Learning from "../pages/learning"; // ✅ ADD THIS
+import Learning from "../pages/learning"; // Ensure this export exists
+import StockDetail from "../pages/stock"; // Created newly
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Landing />,
   },
-
   {
     path: "/login",
     element: (
@@ -28,7 +24,6 @@ const router = createBrowserRouter([
       </PublicRoute>
     ),
   },
-
   {
     path: "/register",
     element: (
@@ -37,7 +32,6 @@ const router = createBrowserRouter([
       </PublicRoute>
     ),
   },
-
   {
     path: "/dashboard",
     element: (
@@ -52,20 +46,14 @@ const router = createBrowserRouter([
       },
       {
         path: "learning",
-        element: <Learning />, // ✅ ADD THIS
+        element: <Learning />,
       },
       {
-        path: "portfolio",
-        element: <Portfolio />,
+        path: "stock/:symbol",
+        element: <StockDetail />,
       },
-      {
-        path: "trades",
-        element: <Trades />,
-      },
-      {
-        path: "ai-advisor",
-        element: <AIAdvisor />,
-      },
+      // Previous pages like portfolio/trades are now part of the dashboard/drawers
+      // so we remove their dedicated routes to force the "Single Dashboard" paradigm.
     ],
   },
 ]);

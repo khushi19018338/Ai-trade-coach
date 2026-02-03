@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -19,15 +19,15 @@ export default function Landing() {
           </h1>
 
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate("/login")}
+            <Link
+              to="/login"
               className="text-slate-300 hover:text-white transition"
             >
               Login
-            </button>
+            </Link>
 
-            <button
-              onClick={() => navigate("/register")}
+            <Link
+              to="/register"
               className="
                 px-5 py-2 rounded-lg font-semibold
                 bg-cyan-400 text-black
@@ -36,7 +36,7 @@ export default function Landing() {
               "
             >
               Get Started
-            </button>
+            </Link>
           </div>
         </header>
 

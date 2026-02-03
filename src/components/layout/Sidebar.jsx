@@ -10,10 +10,9 @@ import {
 
 export default function Sidebar() {
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${
-      isActive
-        ? "bg-slate-800 text-cyan-400"
-        : "text-slate-300 hover:bg-slate-800 hover:text-white"
+    `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${isActive
+      ? "bg-slate-800 text-cyan-400"
+      : "text-slate-300 hover:bg-slate-800 hover:text-white"
     }`;
 
   return (
@@ -37,20 +36,10 @@ export default function Sidebar() {
 
         <NavLink to="/dashboard/learning" className={linkClass}>
           <GraduationCap size={18} />
-          Learning Mode
+          Learning
         </NavLink>
 
-        <NavLink to="/dashboard/portfolio" className={linkClass}>
-          <Wallet size={18} />
-          Portfolio
-        </NavLink>
-
-       
-
-        <NavLink to="/dashboard/ai-advisor" className={linkClass}>
-          <Brain size={18} />
-          AI Advisor
-        </NavLink>
+        {/* Everything else is context-driven (Stocks via search/click) */}
       </nav>
 
       {/* PUSH FOOTER DOWN */}

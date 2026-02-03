@@ -7,8 +7,8 @@ export default function TradeTable() {
         <h3>Recent Trades</h3>
         <table className="table">
           <tbody>
-            <tr><td>AAPL</td><td>BUY</td><td className="green">+4.2%</td></tr>
-            <tr><td>BTC</td><td>SELL</td><td className="red">-1.1%</td></tr>
+            <tr><td>TCS</td><td>BUY</td><td className="green">+4.2%</td></tr>
+            <tr><td>NIFTY</td><td>SELL</td><td className="red">-1.1%</td></tr>
           </tbody>
         </table>
       </div>

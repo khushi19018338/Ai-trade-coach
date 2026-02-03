@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import API from "../../services/api";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -12,13 +15,25 @@ export default function Register() {
     telegram: "",
   });
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-    localStorage.setItem("token", "demo");
-    localStorage.setItem("user", JSON.stringify(form));
+    try {
+      const res = await API.post("/auth/signup", form);
+      // Assuming signup logs you in automatically or requires login
+      // For this mock, let's assume it logs you in:
+      localStorage.setItem("token", res.token || "mock-token");
+      localStorage.setItem("userId", res.userId || "user-123");
+      localStorage.setItem("userName", res.name || form.name);
 
-    navigate("/dashboard");
+      navigate("/dashboard");
+    } catch (err) {
+      setError("Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -114,12 +129,12 @@ export default function Register() {
         {/* Footer link */}
         <p className="mt-6 text-sm text-center text-slate-400">
           Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
+          <Link
+            to="/login"
             className="text-cyan-400 cursor-pointer hover:underline"
           >
             Login
-          </span>
+          </Link>
         </p>
       </motion.form>
     </div>

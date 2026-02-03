@@ -11,7 +11,7 @@ import MistakesSection from "./components/MistakesSection";
 export default function Learning() {
   return (
     <div className="space-y-10 text-white">
-      
+
       {/* HEADER */}
       <div>
         <h1 className="text-3xl font-bold">Learning Mode</h1>
@@ -22,7 +22,7 @@ export default function Learning() {
 
       {/* PROGRESS */}
       <ProgressCard />
-        <BadgesCard />
+      <BadgesCard />
 
       {/* LESSONS */}
       <section>
@@ -64,24 +64,24 @@ export default function Learning() {
         <QuizCard topic="RSI" />
       </section>
       {/* AI COACH */}
-<section>
-  <h2 className="text-xl font-semibold mb-4">
-    Ask AI Coach
-  </h2>
+      <section>
+        <h2 className="text-xl font-semibold mb-4">
+          Ask AI Coach
+        </h2>
 
-  <AICoachChat lesson="RSI" />
-</section>
- {/* LIVE CHART LESSON */}
-<section>
-  <h2 className="text-xl font-semibold mb-4">
-    Live Chart Practice
-  </h2>
+        <AICoachChat lesson="RSI" />
+      </section>
+      {/* LIVE CHART LESSON */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">
+          Live Chart Practice
+        </h2>
 
-  <TradingViewLesson
-    symbol="NASDAQ:AAPL"
-    title="Apply RSI on Live Market"
-  />
-</section>
+        <TradingViewLesson
+          initialSymbol="NSE:RELIANCE"
+          title="Apply RSI on Live Market"
+        />
+      </section>
 
       {/* PRACTICE & INDICATORS */}
       <section>
@@ -96,10 +96,10 @@ export default function Learning() {
       </section>
       <MistakesSection />
 
-  {/* CERTIFICATE */}
-<section>
-  <CertificateCard />
-</section>
+      {/* CERTIFICATE */}
+      <section>
+        <CertificateCard />
+      </section>
 
     </div>
   );
