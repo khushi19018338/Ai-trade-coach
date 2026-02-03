@@ -14,7 +14,31 @@ export default function AddHoldingModal({ onClose, onSave }) {
         e.preventDefault();
         setLoading(true);
         try {
-            await API.post("/dashboard/data/portfolio", formData);
+            const userId = localStorage.getItem("userId");
+            if (!userId) {
+                alert("User ID not found. Please log in again.");
+                return;
+            }
+
+            const payload = {
+                userId,
+                symbol: formData.symbol,
+                qty: Number(formData.qty),
+                avgPrice: Number(formData.avgPrice),
+            };
+
+            console.log("Sending payload:", payload);
+
+            if (isNaN(payload.qty) || payload.qty <= 0) {
+                alert("Please enter a valid quantity");
+                return;
+            }
+            if (isNaN(payload.avgPrice) || payload.avgPrice < 0) {
+                alert("Please enter a valid price");
+                return;
+            }
+
+            await API.post("/dashboard/data/portfolio", payload);
             if (onSave) onSave();
             onClose();
         } catch (error) {

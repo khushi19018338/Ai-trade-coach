@@ -17,7 +17,16 @@ export default function LogSimulationModal({ onClose, onSave }) {
         e.preventDefault();
         setLoading(true);
         try {
-            await API.post("/dashboard/data/trade", formData);
+            const userId = localStorage.getItem("userId");
+            const payload = {
+                ...formData,
+                userId,
+                entry: Number(formData.entry),
+                qty: Number(formData.qty),
+                confidence: Number(formData.confidence)
+            };
+
+            await API.post("/dashboard/data/trade", payload);
             if (onSave) onSave();
             onClose();
         } catch (error) {

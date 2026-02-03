@@ -1,6 +1,16 @@
 import axios from "axios";
 
-const API_URL = ""; // Empty string allows Vite Proxy to handle requests
+/**
+ * Dev:
+ *  - baseURL = "" → Vite proxy → Gateway
+ *
+ * Prod:
+ *  - baseURL = VITE_GATEWAY_URL → Public Gateway URL
+ */
+const API_URL =
+  import.meta.env.MODE === "development"
+    ? ""
+    :"https://gatewayservice-ll9q.onrender.com"; // e.g. https://gateway.onrender.com
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,44 +19,53 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to add auth token and User ID
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+// 🔐 Frontend sends ONLY JWT
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
-  // Watchlist service requires X-User-Id header explicitly
-  if (userId) {
-    config.headers["X-User-Id"] = userId;
-  }
+    /**
+     * ❌ DO NOT send:
+     * - X-User-Id
+     * - X-Gateway-Token
+     *
+     * Gateway will inject both
+     */
 
-  return config;
-});
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-// API Wrapper
+// 🔁 Unified request wrapper
 export const apiRequest = async (method, url, data = null) => {
   try {
-    const response = await api({
-      method,
-      url,
-      data,
-    });
+    const response = await api({ method, url, data });
     return response.data;
   } catch (error) {
     if (error.response) {
-      console.error(`API Error ${url}:`, error.response.status, error.response.data);
+      console.error(
+        `API Error ${method.toUpperCase()} ${url}`,
+        error.response.status,
+        error.response.data
+      );
     } else if (error.request) {
-      console.error(`API Error ${url}: No response received`, error.request);
+      console.error(`API Error ${method.toUpperCase()} ${url}: No response`);
     } else {
-      console.error(`API Error ${url}:`, error.message);
+      console.error(
+        `API Error ${method.toUpperCase()} ${url}:`,
+        error.message
+      );
     }
     throw error;
   }
 };
 
+// 🚀 Clean API surface
 export const API = {
   get: (url) => apiRequest("get", url),
   post: (url, data) => apiRequest("post", url, data),

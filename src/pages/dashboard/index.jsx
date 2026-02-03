@@ -8,6 +8,7 @@ import AISuggestions from "./components/AISuggestions";
 import TradeExplanationDrawer from "./components/TradeExplanationDrawer";
 import CandleChartCard from "./components/CandleChartCard";
 import PortfolioOverview from "./components/PortfolioOverview";
+import MentorshipCard from "./components/MentorshipCard";
 
 export default function Dashboard() {
   const [asset, setAsset] = useState("RELIANCE");
@@ -54,6 +55,11 @@ export default function Dashboard() {
 
         {/* RIGHT COLUMN (Sidebar/Assistant) */}
         <div className="lg:col-span-4 space-y-6">
+
+          {/* NEW: Expert Mentorship Promo */}
+          <section>
+            <MentorshipCard />
+          </section>
 
           {/* 6. Inline Watchlist */}
           <section className="h-[400px]">

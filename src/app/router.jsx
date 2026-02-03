@@ -8,8 +8,11 @@ import Landing from "../pages/landing";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Dashboard from "../pages/dashboard";
-import Learning from "../pages/learning"; // Ensure this export exists
 import StockDetail from "../pages/stock"; // Created newly
+import MentorDashboard from "../pages/mentor/Dashboard";
+import MentorOnboarding from "../pages/mentor/Onboarding";
+import MentorsList from "../pages/mentor/MentorsList";
+import Wallet from "../pages/dashboard/Wallet";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,50 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/mentor/onboarding",
+    element: (
+      <ProtectedRoute>
+        <MentorOnboarding />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/mentor/dashboard",
+    element: (
+      <ProtectedRoute>
+        <MentorDashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/mentors",
+    element: (
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <MentorsList />,
+      },
+    ],
+  },
+  {
+    path: "/wallet",
+    element: (
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Wallet />,
+      },
+    ],
+  },
+  {
     path: "/dashboard",
     element: (
       <ProtectedRoute>
@@ -45,15 +92,9 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "learning",
-        element: <Learning />,
-      },
-      {
         path: "stock/:symbol",
         element: <StockDetail />,
       },
-      // Previous pages like portfolio/trades are now part of the dashboard/drawers
-      // so we remove their dedicated routes to force the "Single Dashboard" paradigm.
     ],
   },
 ]);

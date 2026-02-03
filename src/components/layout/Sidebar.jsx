@@ -5,7 +5,6 @@ import {
   Wallet,
   Repeat,
   Brain,
-  GraduationCap,
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -23,8 +22,8 @@ export default function Sidebar() {
       className="w-64 bg-slate-950 border-r border-slate-800 h-screen flex flex-col"
     >
       {/* LOGO */}
-      <div className="p-6 text-xl font-bold text-cyan-400 tracking-wide">
-        Trade Coach
+      <div className="p-6 text-xl font-bold text-emerald-400 tracking-wide">
+        TradeGuru
       </div>
 
       {/* NAV */}
@@ -34,11 +33,15 @@ export default function Sidebar() {
           Dashboard
         </NavLink>
 
-        <NavLink to="/dashboard/learning" className={linkClass}>
-          <GraduationCap size={18} />
-          Learning
+        <NavLink to="/mentors" className={linkClass}>
+          <Brain size={18} />
+          Find Mentors
         </NavLink>
 
+        <NavLink to="/wallet" className={linkClass}>
+          <Wallet size={18} />
+          Wallet
+        </NavLink>
         {/* Everything else is context-driven (Stocks via search/click) */}
       </nav>
 
